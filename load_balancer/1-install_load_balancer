@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # install load balancer
 
+# Output hostname for verification
+echo "$(hostname)"
 
 echo -e "Updating and doing some minor checks...\n"
 
 function install() {
 	command -v "$1" &> /dev/null
-
 	#shellcheck disable=SC2181
 	if [ $? -ne 0 ]; then
 		echo -e "	Installing: $1\n"
@@ -33,13 +34,15 @@ defaults
   timeout connect 10s
   timeout server 15s
   timeout http-request 10s
+
 frontend cryptocoder-tech-frontend
     bind *:80
     default_backend cryptocoder-tech-backend
+
 backend cryptocoder-tech-backend
     balance roundrobin
-    server 6182-web-01 34.228.13.126:80 check
-    server 6182-web-02 54.210.34.38:80 check
+    server 6834-web-01 3.89.92.200:80 check
+    server 6834-web-02 34.238.80.97:80 check
 "
 
 # shellcheck disable=SC2154
